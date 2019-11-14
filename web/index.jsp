@@ -52,21 +52,35 @@
                 if (validate()) {
                     let y=$('#y-input');
                     if (!(y.val().match(/^-0(((.|,)0+)|)$/) === null)) y.val("0.0");
-                    $.post(
-                        "controller/submit",
-                        $('#form').serialize(),
-                        function (msg) {
-                            $('#answer').contents().find('body').html(msg);
-                        }
-                    );
-                    let R = decodeR();
+                    postSubmit().then(afterPost);
 
-                    setTimeout(drawDots, 100, R);
-                    setTimeout(blockLink,100);
                 }
             } catch (error) {
             }
             return false;
+        }
+        async function postSubmit(){
+            await $.post(
+                "controller/submit",
+                $('#form').serialize(),
+                function (msg) {
+                    $('#answer').contents().find('body').html(msg);
+                }
+            );
+        }
+        async function postCanvas() {
+            await $.post(
+                "controller/canvas",
+                $('#form').serialize(),
+                function (msg) {
+                    $('#answer').contents().find('body').html(msg);
+                }
+            );
+        }
+        function afterPost() {
+            let R=decodeR();
+            drawDots(R);
+            blockLink();
         }
         function blockLink() {
             $('#answer').contents().find('#mainLink').click(function () {
@@ -352,16 +366,8 @@
                                         $('#y-input').val("");
                                     }
                                     if (!(R === "R")) {
-                                        $.post(
-                                            "controller/canvas",
-                                            $('#form').serialize(),
-                                            function (msg) {
-                                                $('#answer').contents().find('body').html(msg);
-                                            }
-                                        )
+                                        postCanvas().then(afterPost);
                                     }
-                                    setTimeout(drawDots, 100, R);
-                                    setTimeout(blockLink,100);
                                 });
                             </script>
                         </div>
