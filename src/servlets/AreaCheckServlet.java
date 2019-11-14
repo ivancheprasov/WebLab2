@@ -45,7 +45,7 @@ public class AreaCheckServlet extends HttpServlet {
                 "<head>\n" +
                 "    <meta charset=\"utf-8\">\n" +
                 "    <title>answer</title>\n" +
-                "    <link rel=\"stylesheet\" href=\"style.css?version=71\">\n" +
+                "    <link rel=\"stylesheet\" href=\"resource/style.css?version=50\">\n" +
                 "</head>\n" +
                 "<body id=\"result-body\">\n" +
                 "<table class=\"point-table\">\n" +
@@ -104,7 +104,8 @@ public class AreaCheckServlet extends HttpServlet {
                 "        </td>\n" +
                 "    </tr>\n" +
                 "    <tr>\n" +
-                "        <td>\n" +
+                "        <td>" +
+                "            <a id=\"mainLink\" href=\"index.jsp\">Вернуться на страницу c формой</a>" +
                 "        </td>\n" +
                 "    </tr>\n" +
                 "    </tbody>\n" +

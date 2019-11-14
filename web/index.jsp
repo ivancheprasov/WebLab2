@@ -5,7 +5,7 @@
     <%dot.clearDotArray();%>
     <meta charset="utf-8">
     <title>Лабораторная работа №2</title>
-    <link rel="stylesheet" href="resource/style.css?version=71">
+    <link rel="stylesheet" href="resource/style.css?version=50">
     <script src="./libs/jquery-3.4.1.min.js"></script>
     <script type="text/javascript">
         function validate() {
@@ -62,12 +62,23 @@
                     let R = decodeR();
 
                     setTimeout(drawDots, 100, R);
+                    setTimeout(blockLink,100);
                 }
             } catch (error) {
             }
             return false;
         }
-
+        function blockLink() {
+            $('#answer').contents().find('#mainLink').click(function () {
+                let errorJquery = $('#error-log');
+                errorJquery.html("");
+                let li = document.createElement('li');
+                li.setAttribute("style", "padding-bottom:1%;padding-top:1%;");
+                errorJquery.append(li);
+                li.innerHTML = li.innerHTML + "Вы уже находитесь на странице с формой.";
+                return false;
+            });
+        }
         function clearText(tag) {
             document.getElementById(tag).value = "";
         }
@@ -350,6 +361,7 @@
                                         )
                                     }
                                     setTimeout(drawDots, 100, R);
+                                    setTimeout(blockLink,100);
                                 });
                             </script>
                         </div>

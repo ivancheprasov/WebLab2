@@ -121,3 +121,12 @@ iframe{
 	width: 100%;
 	background:linear-gradient(45deg,#144B92,#26ADBD);
 }
+a{
+    color:white;
+}
+a:visited{
+    color:white;
+}
+a:hover{
+    color:white;
+}
