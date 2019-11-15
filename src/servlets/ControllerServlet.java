@@ -22,28 +22,41 @@ public class ControllerServlet extends HttpServlet {
         boolean canvas = req.getRequestURI().contains("canvas");
         try {
             String[] xArray = req.getParameterValues("x-input[]");
-            if(xArray.length!=0){
+            if (xArray.length != 0) {
                 for (String xString : xArray) {
                     float x;
                     if (!xString.equals("")) {
-                        x = Float.parseFloat(xString.replace(",", "."));
-                        if ((((x > 4) || (x < -4)) && !canvas) || (canvas && ((x > 10) || (x < -10)))) success = false;
+                        String xReplaced = xString.replace(",", ".");
+                        x = Float.parseFloat(xReplaced);
+                        if ((((x > 4) || (x < -4)) && !canvas) || (canvas && ((x > 10) || (x < -10)))) {
+                            success = false;
+                        } else {
+                            if((!xReplaced.matches("^(4|-4|10|-10)(.0+)?$"))&&(x==4||x==-4||x==10||x==-10)) success=false;
+                        }
                     }
                 }
-            }else{
-                success=false;
+            } else {
+                success = false;
             }
-            String[] yArray=req.getParameterValues("y-input");
-            if(yArray.length==1){
+            String[] yArray = req.getParameterValues("y-input");
+            if (yArray.length == 1) {
                 float y = Float.parseFloat(yArray[0].replace(",", "."));
-                if ((((y > 3) || (y < -5)) && !canvas) || (canvas && ((y > 10) || (y < -10)))) success = false;
-            }else{
-                success=false;
+                if ((((y > 3) || (y < -5)) && !canvas) || (canvas && ((y > 10) || (y < -10)))){
+                    success = false;
+                }else{
+                    if((!yArray[0].replace(",", ".").matches("^(3|-5|10|-10)(.0+)?$"))&&(y==3||y==-5||y==10||y==-10)) success=false;
+                }
+            } else {
+                success = false;
             }
             String[] rArray = req.getParameterValues("r-input[]");
             if (rArray.length == 1) {
                 float r = Float.parseFloat(rArray[0].replace(",", "."));
-                if (r < 1 || r > 5) success = false;
+                if (r < 1 || r > 5){
+                    success = false;
+                }else{
+                    if((!rArray[0].replace(",", ".").matches("^(1|5)(.0+)?$"))&&(r==1||r==5)) success=false;
+                }
             } else {
                 success = false;
             }
